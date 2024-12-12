@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
+{{template "partials/header" .}}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница</title>
-    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
-</head>
+<h1>Добро пожаловать, {{.Name}}!</h1>
+{{.Msg}}
+<a href="/logout" hx-get="/logout" hx-target="body">Выйти</a>
 
-<body>
-    <h1>Добро пожаловать!</h1>
-    <a href="/logout" hx-get="/logout" hx-target="#response" hx-swap="innerHTML">Выйти</a>
-    <div id="response"></div>
-</body>
-
-</html>
+{{template "partials/footer" .}}
