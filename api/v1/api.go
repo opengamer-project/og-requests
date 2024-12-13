@@ -29,29 +29,29 @@ func apiRootHandler(c *fiber.Ctx) error {
 	})
 }
 
-// InitSecure initializes all secure endpoints for api
-func InitSecure(app *fiber.App) {
+// Init initializes all insecure endpoints for api
+func Init(app *fiber.App) {
 	app.Get("/api", apiRootHandler)
 
 	app.Get("/logout", func(c *fiber.Ctx) error {
 		c.Cookie(&fiber.Cookie{Name: "og_auth_token", Value: "", MaxAge: -1})
 
-		return c.Render("logout", nil)
-	})
-
-	app.Get("/home", func(c *fiber.Ctx) error {
-		return homeGetHandler(c)
+		return c.Render("logout", fiber.Map{
+			"Title": "OG Portal",
+		})
 	})
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Redirect("/home", fiber.StatusSeeOther)
 	})
-}
+	app.Get("/home", func(c *fiber.Ctx) error {
+		return homeGetHandler(c)
+	})
 
-// Init initializes all insecure endpoints for api
-func Init(app *fiber.App) {
 	app.Get("/login", func(c *fiber.Ctx) error {
-		return c.Render("login", nil)
+		return c.Render("login", fiber.Map{
+			"Title": "OG Portal: Логин",
+		})
 	})
 
 	app.Post("/login", func(c *fiber.Ctx) error {
@@ -59,7 +59,9 @@ func Init(app *fiber.App) {
 	})
 
 	app.Get("/register", func(c *fiber.Ctx) error {
-		return c.Render("register", nil)
+		return c.Render("register", fiber.Map{
+			"Title": "OG Portal: Регистрация",
+		})
 	})
 
 	app.Post("/register", func(c *fiber.Ctx) error {

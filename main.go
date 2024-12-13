@@ -30,13 +30,13 @@ func main() {
 		Views: engine,
 	})
 	app.Use(recover.New())
-	api.Init(app)
 	app.Static("/static", "./static")
 
 	// JWT Middleware
 	app.Use(jwtware.New(jwtware.Config{
-		TokenLookup: "cookie:og_auth_token",
-		ContextKey:  "auth",
+		TokenLookup:  "cookie:og_auth_token",
+		ContextKey:   "auth",
+		ErrorHandler: api.OnJWTError,
 		SigningKey: jwtware.SigningKey{
 			JWTAlg: jwtware.RS256,
 			Key:    api.PrivateKey.Public(),
@@ -44,6 +44,6 @@ func main() {
 	}))
 
 	//  ROUTES
-	api.InitSecure(app)
+	api.Init(app)
 	app.Listen(":3000")
 }

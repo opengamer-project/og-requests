@@ -1,7 +1,13 @@
 {{template "partials/header" .}}
 
-<h1>Добро пожаловать, {{.Name}}!</h1>
-{{.Msg}}
-<a href="/logout" hx-get="/logout" hx-target="body">Выйти</a>
+{{if .Authenticated}} <h1>Добро пожаловать, {{.Name}}!</h1> {{end}}
 
+{{.Msg}}
+
+{{if .Authenticated}}
+<a href="/logout" hx-get="/logout" hx-target="body">Выйти</a>
+{{else}}
+<br><a href="/login" hx-get="/login" hx-target="body">Войти</a>
+
+{{end}}
 {{template "partials/footer" .}}
