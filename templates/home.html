@@ -5,6 +5,7 @@
 {{.Msg}}
 
 {{if .Authenticated}}
+<a href="/requests"> Заявки</a>
 <a href="/logout" hx-get="/logout" hx-target="body">Выйти</a>
 {{else}}
 <br><a href="/login" hx-get="/login" hx-target="body">Войти</a>

@@ -5,6 +5,15 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
+func initHome(app *fiber.App) {
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.Redirect("/home", fiber.StatusSeeOther)
+	})
+	app.Get("/home", func(c *fiber.Ctx) error {
+		return homeGetHandler(c)
+	})
+}
+
 func homeGetHandler(c *fiber.Ctx) error {
 	msg := ""
 	name := ""

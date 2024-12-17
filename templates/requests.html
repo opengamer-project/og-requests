@@ -1,0 +1,8 @@
+{{template "partials/header" .}}
+
+<h1>Заявки {{.Name}}</h1>
+
+{{range .Requests}} {{.}} {{end}}
+
+
+{{template "partials/footer" .}}
