@@ -20,7 +20,7 @@ func Connect() (*gorm.DB, error) {
 	}
 
 	// Миграция модели
-	db.AutoMigrate(&User{})
+	db.AutoMigrate(&User{}, &Claim{})
 	return db, nil
 }
 
