@@ -10,6 +10,10 @@ import (
 
 func initRequests(app *fiber.App) {
 	app.Get("/requests", requestsGetHandler)
+	app.Post("/requests", newRequestsHandler)
+}
+
+func newRequestsHandler(c *fiber.Ctx) error {
 }
 
 func requestsGetHandler(c *fiber.Ctx) error {
@@ -23,7 +27,7 @@ func requestsGetHandler(c *fiber.Ctx) error {
 	claims := userBefore.(*jwt.Token).Claims.(jwt.MapClaims)
 	name = claims["name"].(string)
 
-	tmp := []models.Claim{models.Claim{}, models.Claim{}}
+	tmp := []models.Claim{models.Claim{User: models.User{Username: name}}, models.Claim{}}
 	renderedClaims := []template.HTML{}
 
 	for _, requsest := range tmp {

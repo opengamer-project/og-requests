@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"html/template"
 
+	"github.com/opengamer-project/og-requests/internal/models"
+	"github.com/opengamer-project/og-requests/internal/store"
 	"gorm.io/gorm"
 )
 
@@ -24,10 +26,23 @@ func (c *Claim) Render() (template.HTML, error) {
 		return "", err
 	}
 	var tpl bytes.Buffer
-	if err := t.Execute(&tpl, nil); err != nil {
+	if err := t.Execute(&tpl, *c); err != nil {
 		return "", err
 	}
 
 	return template.HTML(tpl.String()), nil
+
+}
+
+func NewClaim(user *models.User, text string) (*Claim, error) {
+	res := &Claim{
+		UserID: user.UserID,
+	}
+	return res, nil
+}
+
+func (c *Claim) createClaim() error {
+	db := store.DB
+	return db.Create(*c).Error
 
 }
