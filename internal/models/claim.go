@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"html/template"
 
-	"github.com/opengamer-project/og-requests/internal/models"
-	"github.com/opengamer-project/og-requests/internal/store"
 	"gorm.io/gorm"
 )
 
@@ -20,6 +18,13 @@ type Claim struct {
 	RawText         string
 }
 
+func NewClaim(user *User, text string) (*Claim, error) {
+	res := &Claim{
+		UserID: (*user).ID,
+	}
+	return res, nil
+}
+
 func (c *Claim) Render() (template.HTML, error) {
 	t, err := template.ParseFiles("./templates/components/comment.html")
 	if err != nil {
@@ -31,18 +36,4 @@ func (c *Claim) Render() (template.HTML, error) {
 	}
 
 	return template.HTML(tpl.String()), nil
-
-}
-
-func NewClaim(user *models.User, text string) (*Claim, error) {
-	res := &Claim{
-		UserID: user.UserID,
-	}
-	return res, nil
-}
-
-func (c *Claim) createClaim() error {
-	db := store.DB
-	return db.Create(*c).Error
-
 }

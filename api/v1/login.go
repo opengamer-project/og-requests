@@ -39,14 +39,13 @@ func initLogin(app *fiber.App) {
 		// Редирект на /home при успешной регистрации
 		return registerPOSTHandler(c)
 	})
-
 }
 
 func loginPOSTHandler(c *fiber.Ctx) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 
-	user, err := models.GetUserByUsername(store.DB, username)
+	user, err := store.GetUserByUsername(store.DB, username)
 	if err != nil || user.Password != password {
 		return c.SendString("Неверный логин или пароль")
 	}
@@ -64,7 +63,7 @@ func registerPOSTHandler(c *fiber.Ctx) error {
 	password := c.FormValue("password")
 
 	user := &models.User{Username: username, Password: password}
-	if err := models.CreateUser(store.DB, user); err != nil {
+	if err := store.CreateUser(store.DB, user); err != nil {
 		return c.SendString("Ошибка регистрации: " + err.Error())
 	}
 	// Create the Claims

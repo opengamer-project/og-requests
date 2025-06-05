@@ -5,6 +5,8 @@ go 1.23.2
 require (
 	github.com/gofiber/fiber/v2 v2.52.5
 	github.com/gofiber/session/v2 v2.0.2
+	github.com/golang-jwt/jwt/v5 v5.2.1
+	github.com/pkg/errors v0.9.1
 	gorm.io/driver/sqlite v1.5.7
 	gorm.io/gorm v1.25.12
 )
@@ -13,7 +15,6 @@ require (
 	github.com/MicahParks/keyfunc/v2 v2.1.0 // indirect
 	github.com/gofiber/template v1.8.3 // indirect
 	github.com/gofiber/utils v1.1.0 // indirect
-	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 )
 
 require (
