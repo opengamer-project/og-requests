@@ -27,7 +27,7 @@ func requestsGetHandler(c *fiber.Ctx) error {
 	claims := userBefore.(*jwt.Token).Claims.(jwt.MapClaims)
 	name = claims["name"].(string)
 
-	tmp := []models.Claim{{User: models.User{Username: name}}, {}}
+	tmp := []models.Claim{{User: models.User{Username: name}, RawText: "Тестовая заявка"}}
 	renderedClaims := []template.HTML{}
 
 	for _, requsest := range tmp {
